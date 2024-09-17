@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List Example</title>
+    <style>
+        li {
+            margin-bottom: 10px;
+        }
+
+        li button {
+            font-size: 12px;
+            margin-left: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My Shopping List</h1>
+
+    <div>
+        <label for="item">Enter a new item:</label>
+        <input type="text" name="item" id="item">
+        <button>Add item</button>
+    </div>
+
+    <ul></ul>
+
+    <script>
+        const unorderedList = document.querySelector("ul");
+        const input = document.querySelector("input");
+        const btn = document.querySelector("button");
+
+        function checkIfEmpty(item) {
+            if (item.trim() === "") {
+                alert("Please enter a valid item.");
+                input.focus();
+                return true;  
+            }
+            return false; 
+        }
+
+        input.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                btn.click();
+            }
+        });
+
+        btn.addEventListener("click", function () {
+            const item = input.value;
+            input.value = "";
+
+            if (checkIfEmpty(item)) {
+                return;
+            }
+
+            const list = document.createElement("li");
+            const span = document.createElement("span");
+            const btn2 = document.createElement("button");
+
+            span.textContent = item;
+            btn2.textContent = "Delete";
+
+            list.appendChild(span);
+            list.appendChild(btn2);
+
+            unorderedList.appendChild(list);
+
+            btn2.addEventListener("click", function () {
+                this.parentNode.remove();
+            });
+
+            input.focus();
+        });
+    </script>
+
+</body>
+</html>
